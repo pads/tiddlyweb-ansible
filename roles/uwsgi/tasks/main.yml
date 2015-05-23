@@ -1,0 +1,13 @@
+---
+- name: Ensure the latest uWSGI is installed
+  apt: name=uwsgi state=latest
+
+- name: Ensure the latest uWSGI python plugin is installed
+  apt: name=uwsgi-plugin-python state=latest
+
+- name: Copy uwsgi configuration for TiddlyWeb
+  template: src=tiddlyweb.ini dest=/etc/uwsgi/apps-available/tiddlyweb.ini mode=u+rx
+
+- name: Enable TiddlyWeb site on uwsgi
+  file: src=/etc/uwsgi/apps-available/tiddlyweb.ini dest=/etc/uwsgi/apps-enabled/tiddlyweb.ini state=link
+  notify: Restart uwsgi

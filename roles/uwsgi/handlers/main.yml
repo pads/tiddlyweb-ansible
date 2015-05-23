@@ -1,0 +1,3 @@
+---
+- name: Restart uwsgi
+  service: name=uwsgi args=tiddlyweb state=restarted enabled=yes

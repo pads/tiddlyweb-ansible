@@ -1,0 +1,10 @@
+---
+- name: Ensure the latest nginx is installed
+  apt: name=nginx state=latest
+
+- name: Copy nginx configuration for TiddlyWeb
+  template: src=tiddlyweb.conf dest=/etc/nginx/sites-available/tiddlyweb mode=u+rx
+
+- name: Enable TiddlyWeb site on nginx
+  file: src=/etc/nginx/sites-available/tiddlyweb dest=/etc/nginx/sites-enabled/tiddlyweb state=link
+  notify: Restart nginx

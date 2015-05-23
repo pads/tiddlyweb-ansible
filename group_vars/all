@@ -1,0 +1,4 @@
+---
+server_hostname: localhost
+home_dir: /home/tiddlyweb
+instance_dir: "{{ home_dir }}/tiddlyweb_instance"

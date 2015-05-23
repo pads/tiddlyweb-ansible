@@ -1,0 +1,19 @@
+---
+- name: Ensure the presence of tiddlyweb group
+  group: name=tiddlyweb
+
+- name: Ensure the presence of tiddlyweb user
+  user: name=tiddlyweb group=tiddlyweb generate_ssh_key=yes
+
+- name: Ensure the latest TiddlyWeb is installed
+  pip: name=tiddlywebwiki state=latest
+
+- name: Ensure the presence of a TiddlyWeb instance
+  command: twinstance tiddlyweb_instance creates=tiddlyweb_instance chdir={{ home_dir }}
+  become: yes
+  become_user: tiddlyweb
+
+- name: Ensure the presence of WSGI config file
+  get_url: url=https://raw.githubusercontent.com/tiddlyweb/tiddlyweb/master/wsgiapp.py dest={{ instance_dir }}
+  become: yes
+  become_user: tiddlyweb

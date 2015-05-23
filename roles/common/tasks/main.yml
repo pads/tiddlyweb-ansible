@@ -1,0 +1,6 @@
+---
+- name: Ensure the presence of pip
+  apt: name=python-pip state=latest
+
+- name: Ensure the presence of Python header files
+  apt: name=python-dev state=latest
